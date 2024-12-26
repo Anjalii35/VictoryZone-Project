@@ -1,0 +1,138 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: gainsboro;
+}
+.outer-div{
+    width: 1400px;
+    height: 2500px;
+    background-color: white;
+    margin: auto;
+}
+.title-div{
+    height: 50px;
+}
+.title-div b{
+    font-size: 28px;
+    margin-top: 13px;
+    float: left;
+}
+.txt{
+    float: left;
+    font-size: 27px;
+    margin: 20px 7px 0 25px;
+}
+.menu-div{
+    height: 40px;
+    width: inherit;
+}
+.menu-div ol{
+    list-style: none;
+}
+.menu-div ol a{
+    color: black;
+}
+.menu-div li{
+    float: left;
+    padding: 10px;
+    width: 250px;
+    text-align: center;
+    border-right: 1px solid black;
+    margin: auto;
+    font-size: 20px;
+}
+.pics{
+    margin: 15px 80px;
+}
+.tx{
+    padding: 30px;
+    font-size: 25px;
+}
+.head{
+    /* width: inherit; */
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 25px;
+    line-height: 40px;
+    margin-top: 25px;
+}
+.all-items{
+    width: inherit;
+    height: 600px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+.card{
+    float: left;
+    width: 231px;
+    border: 1px black solid;
+    height: 600px;
+    margin-top: 20px;
+}
+.card img{
+    width: inherit;
+    height: 280px;
+}
+.title{
+    font-size: 25px;
+    text-align: center;
+    margin: 8px 0;
+}
+.card p{
+    text-align: justify;
+    padding: 7px;
+}
+.card button{
+    padding: 3px;
+    margin-left: 75px;
+    margin-top: 15px;
+}
+.cont{
+    padding: 0 15px;
+    font-size: 20px;
+}
+.cont h3{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.cont ol{
+    margin-left: 22px;
+    margin-bottom: 15px;
+}
+.cont ol li{
+    line-height: 32px;
+}
+.how{
+    height: 350px;
+}
+.if{
+    margin: 25px;
+    float: left;
+}
+.inp{
+    margin: 15px;
+    font-size: 20px;
+}
+.inp input{
+    width: 400px;
+    font-size: 16px;
+    padding: 7px;
+    margin-top: 5px;
+}
+.form{
+    margin: 60px 500px;
+}
+#fix{
+    border: 2px solid black;
+    width: 30px;
+    text-align: center;
+    padding: 10px;
+    /* font: 28px; */
+    border-radius: 50%;
+    position: fixed;
+    right: 65px;
+    bottom: 30px;
+}

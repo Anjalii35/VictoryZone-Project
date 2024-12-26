@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Organizer Form</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        label {
+            font-size: 17px;
+        }
+        nav {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+    <script>
+        function preview() {
+            prev.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#email").val(localStorage.getItem("activeuser")).attr("readonly",true);
+
+            $("#btnFetch").click(function () {
+                let email = $("#email").val();
+
+                let obj = {
+                    type: "get",
+                    url: "/fetch-user",
+                    data: {
+                        email: email
+                    }
+                }
+                //fire AJAX request
+                $.ajax(obj).done(function (responseAry) {
+
+                    alert(JSON.stringify(responseAry));
+                    if (responseAry.length == 0) {
+                        alert("Invalid Id");
+                        return;
+                    }
+                    $("#name").val(responseAry[0].name);
+                    $("#organization").val(responseAry[0].organization);
+                    $("#num").val(responseAry[0].contact);
+                    $("#city").val(responseAry[0].city);
+                    $("#address").val(responseAry[0].address);
+                    $("#proof").val(responseAry[0].proof);
+                    $("#prev").prop("src", responseAry[0].ppic);
+                    $("#sports").val(responseAry[0].sport);
+                    $("#prevu").val(responseAry[0].prev);
+                    $("#exp").val(responseAry[0].exp);
+                    $("#link").val(responseAry[0].link);
+                }).fail(function (err) {
+                    
+                    alert(err);
+                })
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid ms-3">
+            <div style="margin: 5px 8px;">
+                <img src="pics/Screenshot 2024-12-24 203253.png" id="victory" alt="victory" height="57px" width="62px"
+                    style="border-radius: 50%; border: 1px solid grey; object-fit: cover;">
+            </div>
+            <a class="navbar-brand ms-2">
+                <h4>VictoryZone</h4>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="mx-auto">
+                    <h3 class="navbar-text fw-bold" style="margin-right: 240px;">Organizer Profile Form</h3>
+                  </div>
+                </div>            
+                
+            </div>
+        </div>
+    </nav>
+    <div class="container my-5">
+        <form method="post" enctype="multipart/form-data">
+            <div class="row mb-3">
+                <div class="col-md-10 col-sm-10">
+                    <label class="form-label">Email Address :</label>
+                    <input type="email" class="form-control" id="email" name="email"
+                        placeholder="e.g. organizer@gmail.com" required>
+                </div>
+                <div class="col-md-2 col-sm-2 d-flex align-items-end mt-3 mt-md-0 mt-sm-0">
+                    <button type="button" class="btn btn-primary w-100" value="Fetch" id="btnFetch">Search</button>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Name :</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="e.g. abcd" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Organization Name :</label>
+                    <input type="text" class="form-control" id="organization" name="organization"
+                        placeholder="e.g. City Sports Club" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Contact Number :</label>
+                    <input type="tel" class="form-control" id="num" name="num" placeholder="e.g. +1 234 567 8900"
+                        required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">City :</label>
+                    <input type="text" class="form-control" id="city" name="city" placeholder="e.g. XYZ city" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Full Address :</label>
+                <input type="text" class="form-control" id="address" name="address"
+                    placeholder="e.g. 123 Sports Avenue, XYZ" required>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">ID Proof Type :</label>
+                    <select class="form-select" id="proof" name="proof" required>
+                        <option value="" disabled selected>Select ID Proof Type</option>
+                        <option value="aadhar_card">Aadhar Card</option>
+                        <option value="Registration">Registration Certificate</option>
+                        <option value="passport">Passport</option>
+                        <option value="voter_id">Voter ID</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label">Upload ID Proof Image :</label>
+                <input type="file" class="form-control" id="profilepic" name="profilepic" placeholder="Enter your email"
+                    onchange="preview();">
+                <div class="mt-3">
+                    <img src="" id="prev" alt="" height="130" width="130">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Sports Dealing With :</label>
+                <select multiple class="form-select" id="sports" name="sports" required>
+                    <option value="Cricket">Cricket</option>
+                    <option value="Football">Football</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="Hockey">Hockey</option>
+                </select>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label for="" class="form-label">Previous Tournaments Hosted :</label>
+                    <textarea class="form-control" id="prevu" name="prevu" placeholder="e.g. City Cup 2023"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Experience (in Years) :</label>
+                    <input type="number" class="form-control" id="exp" name="exp" placeholder="e.g. 5" min="0" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label">Website or Instagram Link :</label>
+                <input type="url" class="form-control" id="link" name="link"
+                    placeholder="e.g. https://instagram.com/yourprofile">
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-primary me-3" formaction="/signup-process-secure">Save</button>
+                <button type="submit" class="btn btn-primary" formaction="/signup-update">Update</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
