@@ -22,16 +22,26 @@ app.listen(2005, function () {
     console.log("Server Started");
 })
 
-let config = "mysql://avnadmin:AVNS_BGDTedcYccPkJZN9M_H@mysql-38684f1b-anjalibti10082004-479d.h.aivencloud.com:23163/myproject?";  //webserver? database?  userid? password?
+
+let config = {
+  host: process.env.DB_HOST || "mysql-38684f1b-anjalibti10082004-479d.h.aivencloud.com",
+  port: process.env.DB_PORT || 23163,
+  user: process.env.DB_USER || "avnadmin",
+  password: process.env.DB_PASSWORD || "AVNS_BGDTedcYccPkJZN9M_H",
+  database: process.env.DB_NAME || "myproject",
+  ssl: { rejectUnauthorized: true }
+};
+
 let mysqlServer = mysql2.createConnection(config);
+
 mysqlServer.connect(function (err) {
-    if (err == null) {
-        console.log("Connected to aiven database server Successfully");
-    }
-    else {
-        console.log(err.message);
-    }
-})
+  if (err == null) {
+    console.log("Connected to Aiven database server successfully");
+  } else {
+    console.log("Database connection error:", err.message);
+  }
+});
+
 
 app.get("/", function (req, resp) {
     let path = __dirname + "/public/index.html";
