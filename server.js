@@ -1,3 +1,4 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 var express = require("express");
 var fileuploader = require("express-fileupload");
 var mysql2 = require("mysql2");
@@ -15,32 +16,23 @@ var app = express();
 app.use(express.static("public"));
 
 app.use(fileuploader());
-app.use(express.urlencoded(true));
 
+app.use(express.urlencoded({ extended: true }));
 
-app.listen(2005, function () {
-    console.log("Server Started");
-})
+const PORT = process.env.PORT || 2005;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
+const mysql2 = require("mysql2");
 
-let config = {
-  host: process.env.DB_HOST || "mysql-38684f1b-anjalibti10082004-479d.h.aivencloud.com",
-  port: process.env.DB_PORT || 23163,
-  user: process.env.DB_USER || "avnadmin",
-  password: process.env.DB_PASSWORD || "AVNS_BGDTedcYccPkJZN9M_H",
-  database: process.env.DB_NAME || "myproject",
-  ssl: { rejectUnauthorized: true }
-};
-
-let mysqlServer = mysql2.createConnection(config);
+let mysqlServer = mysql2.createConnection(
+  "mysql://avnadmin:AVNS_BGDTedcYccPkJZN9M_H@mysql-38684f1b-anjalibti10082004-479d.h.aivencloud.com:23163/myproject"
+);
 
 mysqlServer.connect(function (err) {
-  if (err == null) {
-    console.log("Connected to Aiven database server successfully");
-  } else {
-    console.log("Database connection error:", err.message);
-  }
+  if (err) console.log("Database connection error:", err.message);
+  else console.log("Connected to Aiven database server successfully");
 });
+
 
 
 app.get("/", function (req, resp) {
