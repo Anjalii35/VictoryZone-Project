@@ -22,8 +22,6 @@ app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 2005;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
-const mysql2 = require("mysql2");
-
 let mysqlServer = mysql2.createConnection(
   "mysql://avnadmin:AVNS_BGDTedcYccPkJZN9M_H@mysql-38684f1b-anjalibti10082004-479d.h.aivencloud.com:23163/myproject"
 );
